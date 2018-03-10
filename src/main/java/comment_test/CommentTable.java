@@ -75,7 +75,7 @@ public class CommentTable {
 
     public List<String> getRowsValuesByColumn(String columnName){
         List<String> rowValues = new ArrayList<String>();
-        for(int i =1; i < getRows().size(); i++){
+        for(int i =1; i <= getRows().size(); i++){
             rowValues.add(getValueFromCell(i,columnName));
         }
         return rowValues;
@@ -83,15 +83,18 @@ public class CommentTable {
 
     public List<String> getRowsValuesByColumnForAllPages(String columnName){
         List <List<String>> pageRows = new ArrayList<List<String>>();
-        pageRows.add(getRowsValuesByColumn(columnName));
+//        pageRows.add(getRowsValuesByColumn(columnName));
         try {
-            while (driver.findElement(By.xpath("//a[text()='>']")).isDisplayed()) {
-                driver.findElement(By.xpath("//a[text()='>']")).click();
+            do {
                 setTableElement(driver.findElement(By.xpath("//table[@class='webgrid']")));
                 pageRows.add(getRowsValuesByColumn(columnName));
-            }
+                driver.findElement(By.xpath("//a[text()='>']")).click();
+                setTableElement(driver.findElement(By.xpath("//table[@class='webgrid']")));
+
+            } while (driver.findElement(By.xpath("//a[text()='>']")).isDisplayed());
         } catch (Exception e){
-            e.printStackTrace();
+            System.out.println("-__- vot ono");
+            //e.printStackTrace();
         }
         List<String> rowsCombined = pageRows.get(0);
         for(int i = 1; i < pageRows.size();i++){
