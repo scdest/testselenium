@@ -2,6 +2,8 @@ package pageObject;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class MainPage {
     private WebDriver driver;
@@ -9,7 +11,6 @@ public class MainPage {
     public MainPage(WebDriver driver) {
         this.driver = driver;
     }
-
     private By signInButton = By.xpath("//a[text()='Sign in']");
     private By signUpButton = By.xpath("//a[text()='Sign up']");
     private By userNameField = By.xpath(".//*[@id='user[login]']");
